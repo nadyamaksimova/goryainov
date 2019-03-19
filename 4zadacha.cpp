@@ -40,13 +40,13 @@ int o=len(c);
 int l=len(subs); 
 char *d = new char(o+l); 
 for(int i = 0; i<index+1;++i){ 
-*(d+i) = *(c+i); 
+	*(d+i) = *(c+i); 
 } 
 for(int i = index, j = 0; j<l;++i, ++j){ 
-*(d+i)= *(subs+j); 
+	*(d+i)= *(subs+j); 
 } 
 for(int i= index + l, j = index;j<o;++i, ++j){ 
-*(d+i)= *(c+j); 
+	*(d+i)= *(c+j); 
 } 
 return d; 
 } 
@@ -56,9 +56,17 @@ int a = 101;
 char *c = new char[a]; 
 cin.get(c,100); 
 for(int i = find(c,"*") - 1;i>=0;--i){
-	if(c[i]>='0' && c[i]<='9' || c[i]=='.'){sl=i;}
-	else break;} cout<<sl;
+	if(c[i]>='0' && c[i]<='9' || c[i]=='.'){sl=i;
+	}
+else break;
+	} 
+char *h=copy(c,sl,find(c,"*"));
+
 for(int i = find(c,"*") + 1;i<len(c);++i){
-	if(c[i]>='0' && c[i]<='9' || c[i]=='.'){sp=i;}
-	else break;} cout<<sp;
+	if(c[i]>='0' && c[i]<='9' || c[i]=='.'){
+	sp=i;}
+else break;
+	} 
+char *h1=copy(c,sp,find(c,"*"));
+cout<<atof(h)*atof(h1);
 }
