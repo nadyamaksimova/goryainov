@@ -10,7 +10,7 @@ struct stack {
  };
  void push(int n){
      if(m_size == *m_elems){
-         int *b_elems = new int[[m_size+1];
+         int *b_elems = new int[m_size+1];
          for(int i=0;i<m_size;i++)
              b_elems[i]=m_elems[i];
              delete[] m_elems;
@@ -21,7 +21,7 @@ struct stack {
  	m_elems[m_size]=n;
  	m_size++;
  	cout<<"ok"<<endl;}
- };
+
  int pop(){
     if (m_size==0){cout<<"error"<<endl; return 0;}
     else{
@@ -47,7 +47,6 @@ struct stack {
  	cout<<"ok"<<endl;
  };
 };
-
 int main(){
 	int n; string b; stack g;
 	do{
