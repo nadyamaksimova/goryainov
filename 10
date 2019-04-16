@@ -122,7 +122,7 @@ int main(){
 	} else if(c[0]=='+' || c[0]=='-' || c[0]=='*' || c[0]=='/') {
 			sl=g.pop();
 			sp=g.pop();
-			int h1=math(c[0],sl,sp);
+			int h1=math(c[0],sp,sl);
 			g.push(h1);
 			c = del(c, 0, find(c," ") + 1);
 		}
