@@ -1,0 +1,145 @@
+#include <iostream>
+#include <string>
+#include <stdlib.h>
+using namespace std;
+struct stack {
+ int m_size=0; 
+ int *m_elems= new int[0]; 
+ stack(){
+ };
+ ~stack(){
+ };
+ void push(int n){
+     if(m_size == *m_elems){
+         int *b_elems = new int[m_size+1];
+         for(int i=0;i<m_size;i++)
+             b_elems[i]=m_elems[i];
+             delete[] m_elems;
+        m_elems = new int[m_size+1];
+        for(int i=0;i<m_size;i++)
+             m_elems[i]=b_elems[i];
+        delete[] b_elems;}
+ 	m_elems[m_size]=n;
+ 	m_size++;}
+
+ int pop(){
+ 	int q;
+ 	m_size--;
+ 	q=m_elems[m_size];
+ 	m_elems[m_size]=0;
+ 	cout<<q<<endl;
+ 	return q;
+ };
+ int back(){
+ 	 int q=m_elems[m_size-1];
+ 	 cout<<q<<endl;
+ 	 return q;
+ };
+ int size(){
+ 	return m_size;
+ };
+ void clear(){
+ 	m_size=0;
+ 	cout<<"ok"<<endl;
+ };
+};
+int find(char *c, const char *search) { 
+for (int i = 0; *(c + i) != 0; i++) { 
+	if(*(c+i)==*search) return i; 
+} 
+return -1; 
+} 
+char *copy(char *c, int index, int count){ 
+char *d = new char[count+1]; 
+for (int i = index; i < index + count; i++) { 
+*(d + i - index) = *(c + i); 
+} 
+*(d+count) = 0; 
+return d; 
+} 
+int len(char *c){ 
+int a = 0; 
+for( int i=0;*(c+i)!=0;i++){ 
+a++;} 
+return a; 
+} 
+char *del(char *c, int index, int count){ 
+int b=len(c); 
+char *d = new char[b-count+1]; 
+
+//io 0 ai index - 1 
+for (int i = 0; i < index; i++) *(d + i) = *(c + i); 
+
+//io index + count ai eiioa no?iee abcde 
+for (int i = index + count; i < b; i++) *(d + i - count) = *(c + i); 
+
+*(d+b-count)=0; 
+delete[] c; 
+return d; 
+} 
+char *insert(char *c, char *subs, int index){ 
+int o=len(c); 
+int l=len(subs); 
+char *d = new char(o+l); 
+	for(int i = 0; i<o+l;++i){ 
+	if(i<index) {
+	*(d+i)=(*(c+i));
+	}
+	if((i>=index) and (i<(index + l))){
+		*(d+i)=(*(subs+i-index));
+	}
+	if(i>=(index+l)){
+		*(d+i)=(*(c+i-l));
+	}
+	*(d+o+l)=0;
+	
+}
+return d; 
+} 
+float math(char z, float sl, float sp){
+	float d;
+	if(z=='/')d=sl/sp;
+	if(z=='*')d=sl*sp;
+	if(z=='+')d=sl+sp;
+	if(z=='-')d=sl-sp;
+	return d;
+}
+
+
+int main(){
+	int a = 101, sl,sp;
+	stack g; 
+	char *c = new char[a]; 
+	cin.get(c,101);
+	while(find(c," ")!=-1){
+	if(c[0]>='0' && c[0]<='9'){
+		int h=atoi(copy(c,0,find(c," ")));
+		/*char *temp = copy(c,0,find(c," "));
+		int h=atoi(temp);
+		delete [] temp;*/
+		g.push(h);
+		c = del(c,0,find(c," ")+1);
+	} else if(c[0]=='+' || c[0]=='-' || c[0]=='*' || c[0]=='/') {
+			sl=g.pop();
+			sp=g.pop();
+			int h1=math(c[0],sl,sp);
+			g.push(h1);
+			c = del(c, 0, find(c," ") + 1);
+		}
+	}
+	if(c[0]>='0' && c[0]<='9'){
+		int h=atoi(copy(c,0,find(c," ")));
+		/*char *temp = copy(c,0,find(c," "));
+		int h=atoi(temp);
+		delete [] temp;*/
+		g.push(h);
+		c = del(c,0,find(c," ")+1);
+	} else if(c[0]=='+' || c[0]=='-' || c[0]=='*' || c[0]=='/') {
+			sl=g.pop();
+			sp=g.pop();
+			int h1=math(c[0],sl,sp);
+			g.push(h1);
+			c = del(c, 0, find(c," ") + 1);
+		}
+	cout<<g.pop();
+	}
