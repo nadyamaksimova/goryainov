@@ -1,0 +1,55 @@
+#include <iostream>
+#include <string>
+#include <stdlib.h>
+using namespace std;
+struct stack {
+ int m_size=0; 
+ int *m_elems= new int[0]; 
+ stack(){
+ };
+ ~stack(){
+ };
+ void push(int n){
+     if(m_size == *m_elems){
+         int *b_elems = new int[m_size+1];
+         for(int i=0;i<m_size;i++)
+             b_elems[i]=m_elems[i];
+             delete[] m_elems;
+        m_elems = new int[m_size+1];
+        for(int i=0;i<m_size;i++)
+             m_elems[i]=b_elems[i];
+        delete[] b_elems;}
+ 	m_elems[m_size]=n;
+ 	m_size++;}
+
+ int pop(){
+ 	int q;
+ 	m_size--;
+ 	q=m_elems[m_size];
+ 	m_elems[m_size]=0;
+ 	return q;
+ };
+};
+int len(char *c){ 
+int a = 0; 
+for( int i=0;*(c+i)!=0;i++){ 
+a++;} 
+return a; 
+} 
+int main(){
+	int a = 101, sl,sp;
+	stack k; 
+	char *c = new char[a]; 
+	cin.get(c,101);
+	for(int i=0;i<=len(c);i++){
+		if(c[i]=='{'||c[i]=='('||c[i]=='[')
+			k.push(c[i]);
+		else{
+			char s=k.pop();
+			if(c[i]=='}'&&s!='{'){cout<<"error"<<endl;break;}		
+			if(c[i]==')'&&s!='('){cout<<"error"<<endl;break;}	
+			if(c[i]==']'&&s!='['){cout<<"error"<<endl;break;}		
+		}	
+	}
+	cout<<"conec"<<endl;
+	}
